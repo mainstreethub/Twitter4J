@@ -3,7 +3,7 @@ import com.mainstreethub.jenkins.pipelines.java.library.Pipeline
 
 def notifier = new Notifier([
   steps: this,
-  ownerChannels: ["dify-content"]
+  ownerChannels: ["gps-dify-content-noti"]
 ])
 
 new Pipeline(this).run([
