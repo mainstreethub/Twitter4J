@@ -1,4 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.mainstreethub</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.6.0</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.twitter4j</groupId>
     <artifactId>twitter4j</artifactId>
@@ -6,7 +12,6 @@
     <packaging>pom</packaging>
     <name>twitter4j</name>
     <description>A Java library for the Twitter API</description>
-    <url>http://twitter4j.org/</url>
     <licenses>
         <license>
             <name>Apache License 2.0</name>
@@ -14,14 +19,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <scm>
-        <url>https://github.com/yusuke/twitter4j</url>
-        <connection>scm:git:https://github.com/yusuke/twitter4j.git</connection>
-        <developerConnection>scm:git:https://github.com/yusuke/twitter4j.git
-        </developerConnection>
-
-    <tag>4.0.8-SNAPSHOT</tag>
-  </scm>
     <developers>
         <developer>
             <id>yusuke</id>
@@ -75,19 +72,20 @@
             </activation>
             <build>
                 <plugins>
+                    <!-- Override parent pom to suppress treating warnings as errors -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.4</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.2</version>
+                        <configuration combine.self="override">
+                            <source>${java.minimum.version}</source>
+                            <target>${java.minimum.version}</target>
+                            <compilerArgs>
+                                <arg>-Xlint:all</arg>
+                            </compilerArgs>
+                            <showWarnings>true</showWarnings>
+                            <showDeprecation>true</showDeprecation>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
